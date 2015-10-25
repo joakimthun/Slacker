@@ -5,18 +5,25 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 type Config struct {
-	Token      string
-	UserName   string
-	Channel    string
-	UserToPing string
+	Token             string
+	UserName          string
+	Channel           string
+	UserToPing        string
+	IntervalInSeconds int
 }
 
 func main() {
 	config := getConfig("config.json")
-	postMessage(config)
+
+	for {
+		postMessage(config)
+		fmt.Println("Pinged: ", config.UserToPing)
+		time.Sleep(time.Second * time.Duration(config.IntervalInSeconds))
+	}
 }
 
 func postMessage(config Config) {
@@ -31,10 +38,6 @@ func postMessage(config Config) {
 	}
 
 	defer resp.Body.Close()
-
-	body, _ := ioutil.ReadAll(resp.Body)
-
-	fmt.Println(string(body))
 }
 
 func getConfig(fileName string) Config {

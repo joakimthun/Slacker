@@ -12,7 +12,8 @@ Example config-file:
 	"Token" : "<your_token>",
 	"UserName" : "Slacker",
 	"Channel" : "<channel_id>",
-	"UserToPing" : "joakimthun"
+	"UserToPing" : "joakimthun",
+	"IntervalInSeconds" : 60
 }
 
 ```
